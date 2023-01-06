@@ -1,6 +1,7 @@
 # Day 1
 # How many Calories are being carried by the Elf carrying the most Calories?
 library(dplyr)
+library(tidyr)
 
 data_d1 <- read.csv('2022/data/day_1.csv', header = FALSE) 
 
