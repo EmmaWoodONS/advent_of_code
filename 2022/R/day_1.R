@@ -1,6 +1,7 @@
 # Day 1
 # How many Calories are being carried by the Elf carrying the most Calories?
 library(dplyr)
+library(tidyr)
 
 data_d1 <- read.csv('2022/data/day_1.csv', header = FALSE) 
 
@@ -15,5 +16,12 @@ totals <- data_by_elf %>%
   group_by(elf) %>%
   summarise(total_calories = sum(calories))
   
-most = max(totals$total_calories)
+most <- max(totals$total_calories)
 
+
+# part 2: top 3 elves
+top_3_sum <- totals %>% 
+  arrange(desc(total_calories)) %>% 
+  filter(row_number() %in% 1:3) %>% 
+  summarise(sum(total_calories)) %>% 
+  pull()

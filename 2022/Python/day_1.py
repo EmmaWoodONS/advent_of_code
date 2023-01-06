@@ -9,3 +9,6 @@ calories = np.array(data_d1[0])
 by_elf = [np.sum(list(v)) for k, v in groupby(calories, np.isfinite) if k]
 
 max_calories = max(by_elf)
+
+# part 2: top 3 elves
+top_3_sum = np.sum(sorted(by_elf, reverse = True)[0:3])
