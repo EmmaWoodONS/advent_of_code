@@ -23,7 +23,7 @@ data_d2 <- read.csv('2022/data/day_2.csv', header = FALSE) %>%
          me = V2)
 
 type_scores <- data.frame("me" = mine,
-                          "type_score" = c(1:3))
+                          "t_score" = c(1:3))
 
 theirs <- LETTERS[1:3]
 mine <- LETTERS[24:26]
@@ -35,10 +35,30 @@ combos <- expand.grid("them" = theirs, "me" = mine) %>%
       TRUE ~ 0
   )) %>% 
   left_join(type_scores, by = "me") %>% 
-  mutate(score = result_score + type_score)
+  mutate(score = result_score + t_score)
 
 all_games <- data_d2 %>% 
   left_join(combos, by = c("them", "me"))
 
 score <- sum(all_games$score)
+
+# part 2: 
+# X means you need to lose, 
+# Y means you need to end the round in a draw, 
+# Z means you need to win
+
+# X: 1 for type + 0 for result = 1
+# Y: 2 for type + 3 for result = 5
+# Z: 3 for type + 6 for result = 9
+
+part_2 <- all_games %>% 
+  # mutate(p2_score = ifelse(me == "Y", t_score + 3, 0))
+  mutate(
+    p2_score = case_when(
+      me == "X" ~ as.numeric(t_score),
+      me == "Y" ~ as.numeric(t_score) + 3,
+      me == "Z" ~ as.numeric(t_score) + 6
+    )) 
+
+part_2_score <- sum(part_2$p2_score)
 
