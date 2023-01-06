@@ -36,7 +36,7 @@ score = scores_joined["final_score"].sum()
 
 # X: 1 for type + 0 for result = 1
 # Y: 2 for type + 3 for result = 5
-# Z: 3 for type + 6 for result = 6
+# Z: 3 for type + 6 for result = 9
 p2_scores = scores_joined.copy().loc[:, ["them", "me", "type_score"]]
-p2_scores["type_score"] = p2_scores["type_score"].replace([2, 3], [5, 6])
+p2_scores["type_score"] = p2_scores["type_score"].replace([2, 3], [5, 9])
 p2_final_score = p2_scores["type_score"].sum()
